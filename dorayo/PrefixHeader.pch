@@ -1,0 +1,25 @@
+//
+//  PrefixHeader.pch
+//  dorayo
+//
+//  Created by  on 16/12/10.
+//  Copyright © 2016年 . All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+//RGB
+#define RGBA(r, g, b, a)    [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+#define RGB(r, g, b)     RGBA(r, g, b, 1.0f)
+
+//当前屏幕宽度
+#define screenW [UIScreen mainScreen].bounds.size.width
+
+//当前屏幕高度
+#define screenH [UIScreen mainScreen].bounds.size.height
+
+#import "UIView+Extension.h"
+
+
+#endif /* PrefixHeader_pch */

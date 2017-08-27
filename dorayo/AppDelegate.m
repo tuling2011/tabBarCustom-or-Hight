@@ -2,11 +2,16 @@
 //  AppDelegate.m
 //  dorayo
 //
-//  Created by xuetaowang on 16/12/10.
-//  Copyright © 2016年 JinwenTechnology. All rights reserved.
+//  Created by   on 16/12/10.
+//  Copyright © 2016年  . All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "TabBarViewController.h"          //正常tabbar
+#import "HightTabBarViewController.h"     //凸出tabbar
+#import "CustomTabBarViewController.h"    //凸出带文字tabbar
+
+#import "NewfeatureViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +21,30 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+//    //导航栏透明设置,tabbar透明
+//    [UINavigationBar appearance].translucent = NO;
+     [UITabBar appearance].translucent = NO;
+//    //消除tabbar的边框
+    [[UITabBar appearance]setShadowImage:[[UIImage alloc]init]];
+    [[UITabBar appearance]setBackgroundImage:[[UIImage alloc]init]];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+//版本新特性
+    NSString *versionKey = @"CFBundleVersion";
+    // 上一次的使用版本（存储在沙盒中的版本号）
+    NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:versionKey];
+    // 当前app的版本号（从Info.plist中获得）
+    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[versionKey];
+    if ([lastVersion isEqualToString:currentVersion]) {
+        self.window.rootViewController = [[TabBarViewController alloc] init];
+    } else {
+        self.window.rootViewController = [[NewfeatureViewController alloc] init];
+        //将版本号写入沙盒
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:versionKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
     return YES;
 }
 
